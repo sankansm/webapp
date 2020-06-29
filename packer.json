@@ -1,0 +1,39 @@
+{
+    "variables": {
+      "aws_access_key": "",
+      "aws_secret_key": "",
+      "region": "us-east-1",
+      "component": "{{app-name}}",
+      "build_number": "{{build_no}}",
+      "job": "{{job_name}}"
+    },
+    "builders": [{
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "source_ami": "ami-09d45e01b59754402",
+      "region": "{{user `region`}}",
+      "instance_type": "t2.micro",
+      "ssh_username": "ubuntu",
+      "ami_name": "{{user `component`}}",
+    "tags": {
+        "Name": "{{user `component` }}",
+        "Env": "DEMO"
+
+      }
+  }],           
+
+  "provisioners": [
+  {
+    "type": "file",
+    "source": "/var/lib/jenkins/workspace/{{user `job`}}/webapp/target/webapp-{{user `build_number`}}.war",
+    "destination": "/tmp/webapp-{{user `build_number`}}.war"
+  },
+  {
+    "type": "shell",
+    "inline": ["sudo cp /tmp/*.war /opt/tomcat/webapps/"]
+  }
+
+  
+  ]
+}
