@@ -36,25 +36,7 @@ pipeline {
         }
         
         
-        stage ('Release to Nexus')  {
-            steps{
-        nexusArtifactUploader(
-        nexusVersion: 'nexus3',
-        protocol: 'http',
-        nexusUrl: '3.231.3.95:8081/',
-        groupId: 'com.example.maven-project',
-        version: '1.0-SNAPSHOT',
-        repository: 'maven-snapshots',
-        credentialsId: 'nexus',
-        artifacts: [
-            [artifactId: 'webapp',
-             classifier: '',
-             file: 'webapp/target/webapp-$BUILD_NUMBER.war',
-             type: 'war']
-        ]
-     )
-            }
-    }
+        
     stage('Bake Image'){
                 steps{
                 sh "/usr/bin/packer build -var 'job=$JOB_NAME' -var 'build_number=$BUILD_NUMBER' -var 'component=$JOB_NAME-$BUILD_NUMBER' packer.json"
