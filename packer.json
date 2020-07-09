@@ -14,6 +14,7 @@
       "source_ami": "ami-09d45e01b59754402",
       "region": "{{user `region`}}",
       "instance_type": "t2.micro",
+      "security_group_id": "packer",
       "ssh_username": "ubuntu",
       "ami_name": "{{user `component`}}",
     "tags": {
