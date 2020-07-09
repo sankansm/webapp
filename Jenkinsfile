@@ -23,7 +23,7 @@ pipeline {
         stage("Build") {
             steps {
                withSonarQubeEnv('My SonarQube Server') {
-                sh 'mvn clean package  -DskipTests=true" sonar:sonar'
+                sh 'mvn clean package  sonar:sonar'
               }
             } 
         }
