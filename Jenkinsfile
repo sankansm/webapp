@@ -22,18 +22,38 @@ pipeline {
         }
         stage("Build") {
             steps {
-                script {
-                    sh "mvn package -DskipTests=true"
-                }
+               withSonarQubeEnv('My SonarQube Server') {
+                sh 'mvn clean package  -DskipTests=true" sonar:sonar'
+              }
             } 
         }
         stage("Test") {
             steps {
                 script {
                     sh "mvn test"
+                    
                 }
         }
         }
+        stage ('Release to Nexus')  {
+            steps{
+        nexusArtifactUploader(
+        nexusVersion: 'nexus3',
+        protocol: 'http',
+        nexusUrl: '3.231.3.95:8081/',
+        groupId: 'com.example.maven-project',
+        version: '1.0-SNAPSHOT',
+        repository: 'maven-snapshots',
+        credentialsId: 'nexus',
+        artifacts: [
+            [artifactId: 'webapp',
+             classifier: '',
+             file: 'webapp/target/webapp-$BUILD_NUMBER.war',
+             type: 'war']
+        ]
+     )
+            }
+    }
         
         
         
