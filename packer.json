@@ -3,7 +3,7 @@
       "aws_access_key": "",
       "aws_secret_key": "",
       "region": "us-east-1",
-      "component": "{{app-name}}",
+      "component": "{{appname}}",
       "build_number": "{{build_no}}",
       "job": "{{job_name}}"
     },
