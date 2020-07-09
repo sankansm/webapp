@@ -5,11 +5,11 @@ provider "aws" {
 terraform {
   backend "s3" {
     # Replace this with your bucket name!
-    bucket         = "terraform-remote-sankansm"
-    key            = "state/terraform.tfstate"
+    bucket         = "sankansm-remote-bucket"
+    key            = "remotestate/terraform.tfstate"
     region         = "us-east-1"
     # Replace this with your DynamoDB table name!
-    dynamodb_table = "sankanams-terra-my-table"
+    dynamodb_table = "terraform-up-and-running-locks"
     encrypt        = true
   }
 }
