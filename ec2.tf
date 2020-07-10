@@ -2,7 +2,9 @@
 resource "aws_security_group" "instance"{
     name = "${var.component}"
     vpc_id = "vpc-4bb98331"
-
+    lifecycle {
+    create_before_destroy = true
+  }
     ingress {
     from_port   = 22
     to_port     = 22
