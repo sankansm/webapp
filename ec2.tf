@@ -1,7 +1,8 @@
 
 resource "aws_security_group" "instance"{
-    name = "${var.component}"
+    
     vpc_id = "vpc-4bb98331"
+    name_prefix = "example-"	
     lifecycle {
     create_before_destroy = true
   }
